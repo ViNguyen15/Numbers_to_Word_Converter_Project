@@ -12,20 +12,34 @@ public class Main {
         };
 
         Arrays.stream(numbers).forEach(e -> System.out.print(e + " "));
+        System.out.println();
 
-        IntStream.range(0, 9)
+        new Main().toColumns(numbers, 3);
+
+    }
+
+    //
+    public void toColumns(String[] list, int columns){
+        int perColumn = list.length%columns==0 ? list.length/columns : (list.length/columns) + 1;
+
+        IntStream.range(0, perColumn)
                 .mapToObj(n -> {
-                    boolean inBounds = (n >= 0) && (n+9+9 < numbers.length);
+                    boolean inBounds = (n >= 0) && (n + perColumn * (columns - 1) < list.length);
                     String row = "";
-                    if(inBounds)
-                        row = numbers[n] + " " + numbers[n+9] + " " + numbers[n+9+9];
+
+                    // inbound checks the column to see if there are any null
+                    if (inBounds)
+                        for (int i = 0; i < columns; i++) {
+                            row += (list[n + (i * perColumn)] + " ");
+                        }
                     else
-                        row = numbers[n] + " " + numbers[n+9];
+                        for (int i = 0; i < columns - 1; i++) {
+                            row += (list[n + (i * perColumn)] + " ");
+                        }
 
                     return row;
-        })
-                .forEach(System.out::println);
-
+                })
+                .forEach(e -> System.out.println(e) );
     }
 
 
