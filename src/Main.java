@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 public class Main {
     public static void main(String[] args) {
         String[] numbers = {
@@ -7,35 +11,23 @@ public class Main {
                 "Twenty-Two", "Twenty-Three", "Twenty-Four", "Twenty-Five"
         };
 
-        new Main().toColumns(3,numbers);
+        Arrays.stream(numbers).forEach(e -> System.out.print(e + " "));
+
+        IntStream.range(0, 9)
+                .mapToObj(n -> {
+                    boolean inBounds = (n >= 0) && (n+9+9 < numbers.length);
+                    String row = "";
+                    if(inBounds)
+                        row = numbers[n] + " " + numbers[n+9] + " " + numbers[n+9+9];
+                    else
+                        row = numbers[n] + " " + numbers[n+9];
+
+                    return row;
+        })
+                .forEach(System.out::println);
 
     }
 
-    public void toColumns(int columns, String[] numbers){
-        int numToDivide = 0;
 
-        if (numbers.length % columns > 0)
-            numToDivide = (numbers.length/columns) + 1;
-        else
-            numToDivide = numbers.length/columns;
-
-        String[] grid = new String[columns];
-        for(int i = 0; i < grid.length; i++)
-            grid[i] = "";
-
-        int count = 0;
-        for(int i = 0; i < numbers.length; i++){
-            grid[count] += numbers[i] + " ";
-
-            if( (i+1) % numToDivide == 0)
-                count++;
-        }
-
-        for(int i = 0; i < 9; i++)
-            if (i > 6)
-                System.out.println(grid[0].split(" ")[i] + " " + grid[1].split(" ")[i]);
-            else
-                System.out.println(grid[0].split(" ")[i] + " " + grid[1].split(" ")[i] + " " + grid[2].split(" ")[i]);
-    }
 
 }
