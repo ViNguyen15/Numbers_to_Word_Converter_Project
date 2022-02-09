@@ -11,8 +11,6 @@ public class Main {
                 "Twenty-Two", "Twenty-Three", "Twenty-Four", "Twenty-Five"
         };
 
-        Arrays.stream(numbers).forEach(e -> System.out.print(e + " "));
-        System.out.println();
 
         new Main().toColumns(numbers, 3);
 
@@ -30,11 +28,11 @@ public class Main {
                     // inbound checks the column to see if there are any null
                     if (inBounds)
                         for (int i = 0; i < columns; i++) {
-                            row += (list[n + (i * perColumn)] + " ");
+                            row += String.format("%-15s",list[n + (i * perColumn)]);
                         }
                     else
                         for (int i = 0; i < columns - 1; i++) {
-                            row += (list[n + (i * perColumn)] + " ");
+                            row += String.format("%-15s",list[n + (i * perColumn)]);
                         }
 
                     return row;
